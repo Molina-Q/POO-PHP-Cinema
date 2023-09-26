@@ -1,33 +1,47 @@
 <?php
 
 class Role {
-    private string $role ;
-    private Casting $casting ;
+    private string $nom;
+    private array $castings;
 
-    public function __construct(string $role, Casting $casting) {
-        $this->role = $role ;
-        $this->casting = $casting ;
+    public function __construct(string $nom) {
+        $this->nom = $nom;
 
-        $this->casting->addCasting($this) ;
-    } 
+        $this->castings = [];
+    }
 
     // getter
-    public function getRole()
+    public function getNom()
     {
-        return $this->role ;
+        return $this->nom;
     }
 
     //setter
-    public function setRole($role) 
+    public function setNom($nom) 
     {
-        $this->role = $role ; 
+        $this->nom = $nom; 
     }
 
     // toString
     public function __toString()
     {
-   
+        return $this->nom;
     }
+
     // Méthode
+    public function addCasting(Casting $castingObjet)
+    {
+        $this->castings[] = $castingObjet;
+    }
+
+    public function playedBy()
+    {
+        echo "le role de ".$this->getNom()." a été joué par : ";
+        echo "<ul>";
+        foreach($this->castings as $casting) {
+            echo "<li><p>".$casting->getActeur()."</p></li>";
+        }
+        echo "</ul>";
+    }
 }
 ?>
